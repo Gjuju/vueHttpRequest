@@ -49,17 +49,18 @@ export default {
       }
 
       let content = {
-        url: "https://localhost:7133/api/todoitems",
-        data: { Name: this.name, Age: this.age },
-      }
+         name: this.name, age: this.age
+      };
 
-      this.axios
-        .post("POST", content,)
+      //this.axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+      //this.axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+      
+      this.axios.post("https://localhost:7150/api/todoitems", content)
         .then(function (response) {
-          console.log(response);
+          console.log("resp : ", response);
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("err : ",error);
         });
     },
   },

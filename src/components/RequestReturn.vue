@@ -3,7 +3,7 @@
     <button @click="reqAll">request all</button>
     <br />
     <label for="id">Id :</label>
-    <input type="number" name="id" id="id" />
+    <input type="number" name="id" id="id" v-model="id"/>
     <button @click="reqId">request Id</button>
     <ul>
       <li v-for="item in list" :key="item.id">
@@ -19,6 +19,7 @@ export default {
   props: {},
   data: function () {
     return {
+      id: "",
       ret: "",
       list: [],
     };
@@ -29,13 +30,26 @@ export default {
       
 
       this.axios
-        .get("https://localhost:7133/api/todoitems")
+        .get("https://localhost:7150/api/todoitems")
         .then((response) => {
+          this.list = response.data
           console.log(response.data);
         });
     },
     reqId: function () {
-      console.log("request Id");
+      console.log("request Id: ", this.id);
+      let id = this.id
+      this.axios
+        .get("https://localhost:7150/api/todoitems/"+ id)
+        .then((response) => {
+          if (id == "") {
+            this.list = response.data
+          console.log(response.data);
+          } else {
+            this.list = [response.data]
+          console.log(response.data);
+          }
+        }).catch( (err) => {console.log(err)});
     },
   },
 };
@@ -51,7 +65,6 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
   margin: 0 10px;
 }
 a {
