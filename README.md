@@ -1,5 +1,6 @@
 # httpreq
 Un mini projet me permetant de tester l'envoi de requetes HTTP vers une API Rest en DotNet
+https://github.com/Gjuju/dotNetApiTest
 
 ## Project setup
 ```
