@@ -1,25 +1,39 @@
 <template>
   <div>
+    <div>
+
+
     <button @click="reqAll">request all</button>
     <br />
     <label for="id">Id :</label>
     <input type="number" name="id" id="id" v-model="id"/>
     <button @click="reqId">request Id</button>
     <ul>
-      <li v-for="item in list" :key="item.id">
+      <li v-for="item in list" :key="item.id" @click="showIt(item)">
         {{ item.id }} - {{ item.name }} - {{ item.age }}
       </li>
     </ul>
+    </div>
+    <div v-if="selectedItem">
+      <UpdateDelete :passedItem="selectedItem"/>
+    </div>
   </div>
 </template>
 
 <script>
+import UpdateDelete from "./UpdateDelete.vue";
+
 export default {
   name: "RequestReturn",
-  props: {},
+  components:{
+    UpdateDelete
+  },
+  props: {
+    },
   data: function () {
     return {
       id: "",
+      selectedItem: undefined,
       ret: "",
       list: [],
     };
@@ -27,13 +41,10 @@ export default {
   methods: {
     reqAll: function () {
       console.log("request All");
-      
-
       this.axios
         .get("https://localhost:7150/api/todoitems")
         .then((response) => {
           this.list = response.data
-          console.log(response.data);
         });
     },
     reqId: function () {
@@ -44,13 +55,19 @@ export default {
         .then((response) => {
           if (id == "") {
             this.list = response.data
-          console.log(response.data);
           } else {
             this.list = [response.data]
-          console.log(response.data);
           }
         }).catch( (err) => {console.log(err)});
     },
+    showIt: function (item) {
+      this.clearState().then(() => {
+        this.selectedItem = item
+      })
+    },
+    clearState: async function () {
+      this.selectedItem = undefined;
+    } 
   },
 };
 </script>
