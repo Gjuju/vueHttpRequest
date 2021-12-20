@@ -54,7 +54,7 @@ export default {
       }
 
       this.axios
-        .post("post", content)
+        .post("POST", content,)
         .then(function (response) {
           console.log(response);
         })
