@@ -1,12 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <div class="wrapper">
-    <div class="left">
-      <Formulaire />
-    </div>
-    <div class="right">
-      <RequestReturn />
-    </div>
+  <img id="logo" alt="Vue logo" src="./assets/logo.png" />
+  <div>
+    <Formulaire />
+    <br />
+    <br />
+    <br />
+    <RequestReturn />
+
+    <!-- <UpdateDelete /> -->
   </div>
 </template>
 
@@ -32,19 +33,20 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+#logo {
+  width: 10%;
 }
-.left {
-  grid-column: 1 / 2;
-  grid-row: 1;
+label {
+  display: inline-block;
+  text-align: center;
+  width: 5rem;
 }
-.tight {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
+input {
+  margin: 5px 10px 5px 10px;
+}
+span {
+  display: inline-block;
+  text-align: center;
+  margin-left: 2rem;
 }
 </style>
