@@ -1,14 +1,14 @@
 <template>
   <div class="hello">
-    <div>Create</div>
+    <h1>Create</h1>
     <br />
-    <label for="name">name : </label>
     <input type="text" name="name" id="name" v-model="name" />
-    <p v-if="errName">{{ errName }}</p>
+    <label for="name">Name</label>
+    <div v-if="errName">{{ errName }}</div>
     <br />
-    <label for="age">age :</label>
     <input type="number" name="age" id="age" v-model="age" />
-    <p v-if="errAge">{{ errAge }}</p>
+    <label for="age">Age</label>
+    <div v-if="errAge">{{ errAge }}</div>
     <br />
     <button @click="send">submit</button>
   </div>

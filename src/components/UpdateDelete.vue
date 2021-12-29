@@ -1,21 +1,19 @@
 <template>
   <div>
     <br />
+    <h1>Update / Delete</h1>
     <br />
+    <input type="number" readonly name="id" id="id" v-model="tempItem.id" />
+    <label for="id">Id</label>
     <br />
-    <div>Update / Delete</div>
-    <br />
-    <label for="id">Id :</label>
-    <input type="number" name="id" id="id" v-model="tempItem.id" />
-    <br />
-    <label for="name">name :</label>
     <input type="text" name="name" id="name" v-model="tempItem.name" />
+    <label for="name">Name</label>
     <br />
-    <label for="age">age:</label>
     <input type="text" name="age" id="age" v-model="tempItem.age" />
+    <label for="age">Age</label>
     <br />
-    <button @click="deleteItem">delete</button>
-    <button @click="updateItem">update item</button>
+    <button @click="updateItem">Update item</button>
+    <button @click="deleteItem">Delete item</button>
   </div>
 </template>
 
@@ -50,7 +48,6 @@ export default {
     },
     updateItem: function () {
       this.tempItem.name = this.capitalize(this.tempItem.name);
-      console.log("update item : ", this.item, " to : ", this.tempItem);
       this.axios
         .put(
           "https://localhost:7150/api/todoitems/" + this.tempItem.id,

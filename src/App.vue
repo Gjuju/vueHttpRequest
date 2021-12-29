@@ -2,12 +2,7 @@
   <img id="logo" alt="Vue logo" src="./assets/logo.png" />
   <div>
     <Formulaire />
-    <br />
-    <br />
-    <br />
     <RequestReturn />
-
-    <!-- <UpdateDelete /> -->
   </div>
 </template>
 
@@ -34,12 +29,13 @@ export default {
   margin-top: 60px;
 }
 #logo {
-  width: 10%;
+  width: 5%;
 }
 label {
   display: inline-block;
-  text-align: center;
-  width: 5rem;
+  text-align: start;
+  width: 4rem;
+  font-weight: bold;
 }
 input {
   margin: 5px 10px 5px 10px;
@@ -49,4 +45,31 @@ span {
   text-align: center;
   margin-left: 2rem;
 }
+
+button {
+  background-color: #41b883;
+  border-radius: 8px;
+  border: 1px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 6px 12px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+  margin: 0px 1rem 0px 1rem;
+}
+button:hover {
+  background-color: #5cbf2a;
+}
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+input {
+  padding: 6px 12px;
+}
+
 </style>
