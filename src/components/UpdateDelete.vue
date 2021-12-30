@@ -1,6 +1,10 @@
 <template>
   <div>
     <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <h1>Update / Delete</h1>
     <br />
     <input type="number" readonly name="id" id="id" v-model="tempItem.id" />
@@ -14,6 +18,7 @@
     <br />
     <button @click="updateItem">Update item</button>
     <button @click="deleteItem">Delete item</button>
+    <div v-if="returnMsg != ''">{{ returnMsg }}</div>
   </div>
 </template>
 
@@ -22,28 +27,31 @@ export default {
   name: "UpdateDelete",
   props: {
     passedItem: Object,
+    capitalize: Function
+
   },
   data: function () {
     return {
       item: this.passedItem,
       tempItem: { ...this.passedItem },
+      returnMsg: "",
     };
   },
   methods: {
-    capitalize: function (string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
+    
     deleteItem: function () {
       this.axios
-        .delete("https://localhost:7150/api/todoitems/" + this.item.id)
+        .delete("https://localhost:7150/api/todoitems/" + this.tempItem.id)
         .then((response) => {
           console.log(response.data);
-          this.item.id = undefined;
-          this.item.name = undefined;
-          this.item.age = undefined;
+          this.tempItem.id = undefined;
+          this.tempItem.name = undefined;
+          this.tempItem.age = undefined;
+          this.returnMsg = "L'entrée a bien été supprimée.";
         })
         .catch((err) => {
           console.log("deleteItem : ", err);
+          this.returnMsg = "Une erreur s'est produite !";
         });
     },
     updateItem: function () {
@@ -55,9 +63,14 @@ export default {
         )
         .then((response) => {
           console.log(response.data);
+          this.tempItem.id = undefined;
+          this.tempItem.name = undefined;
+          this.tempItem.age = undefined;
+          this.returnMsg = "L'entrée a bien été  mise à jour.";
         })
         .catch((err) => {
           console.log("updateItem : ", err);
+          this.returnMsg = "Une erreur s'est produite !";
         });
     },
   },

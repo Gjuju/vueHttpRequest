@@ -11,7 +11,15 @@
         <input type="number" name="id" id="id" v-model="id" />
         <label for="id">Id</label>
         <button @click="reqId">Request Id</button>
-        <div v-if="errId">{{ errId }}</div>
+        <br />
+        <input type="text" name="name" id="name" v-model="name" />
+        <label for="name">Name</label>
+        <button @click="reqName">Request Name</button>
+        <br />
+        <input type="number" name="age" id="age" v-model="age" />
+        <label for="age">Age</label>
+        <button @click="reqAge">Request Age</button>
+        <div v-if="err">{{ err }}</div>
       </div>
       <br />
       <div v-if="list.length > 0">
@@ -26,9 +34,9 @@
           </thead>
           <tbody>
             <tr v-for="item in list" :key="item.id" @click="showIt(item)">
-              <td class="td">{{ item.id }}</td>
-              <td class="td">{{ item.name }}</td>
-              <td class="td">{{ item.age }}</td>
+              <td class="pointer">{{ item.id }}</td>
+              <td class="pointer">{{ item.name }}</td>
+              <td class="pointer">{{ item.age }}</td>
             </tr>
           </tbody>
         </table>
@@ -37,7 +45,7 @@
 
     <div class="right">
       <div v-if="selectedItem">
-        <UpdateDelete :passedItem="selectedItem" />
+        <UpdateDelete :passedItem="selectedItem" :capitalize="capitalize" />
       </div>
     </div>
   </div>
@@ -51,14 +59,18 @@ export default {
   components: {
     UpdateDelete,
   },
-  props: {},
+  props: {
+    capitalize: Function,
+  },
   data: function () {
     return {
       id: "",
+      name: "",
+      age: "",
       selectedItem: undefined,
       ret: "",
       list: [],
-      errId: "",
+      err: "",
     };
   },
   mounted: function () {},
@@ -67,7 +79,9 @@ export default {
       this.axios
         .get("https://localhost:7150/api/todoitems")
         .then((response) => {
-          this.list = response.data;
+          this.list = response.data.sort((a, b) => {
+            return a.id - b.id;
+          });
         })
         .catch((err) => {
           console.log("reqAll : ", err);
@@ -75,6 +89,7 @@ export default {
         });
     },
     reqId: function () {
+      console.log(this.id);
       let id = this.id;
       this.axios
         .get("https://localhost:7150/api/todoitems/" + id)
@@ -84,11 +99,49 @@ export default {
           } else {
             this.list = [response.data];
           }
-          this.errId = "";
+          this.err = "";
         })
         .catch((err) => {
           console.log("reqId : ", err);
-          this.errId = "Cet Id n'existe pas.";
+          this.err = "Cet Id n'existe pas.";
+        });
+    },
+    reqName: function () {
+      console.log(this.name);
+      let name = this.capitalize(this.name);
+      this.axios
+        .get("https://localhost:7150/api/todoitems/name/" + name)
+        .then((response) => {
+          console.log(response)
+          if (name != "") {
+            this.list = response.data;
+          } else {
+          this.err = "Veuillez spécifier un nom.";
+          }
+          this.err = "";
+        })
+        .catch((err) => {
+          console.log("reqName : ", err);
+          this.err = "Ce name n'existe pas.";
+        });
+    },
+    reqAge: function () {
+      console.log(this.age);
+      let age = this.age;
+      this.axios
+        .get("https://localhost:7150/api/todoitems/age/" + age)
+        .then((response) => {
+          console.log(response)
+          if (age != "") {
+            this.list = response.data;
+          } else {
+          this.err = "Veuillez spécifier un nom.";
+          }
+          this.err = "";
+        })
+        .catch((err) => {
+          console.log("reqName : ", err);
+          this.err = "Ce name n'existe pas.";
         });
     },
     showIt: function (item) {
@@ -113,12 +166,12 @@ export default {
 }
 
 .left {
-grid-column: 1 / 2;
+  grid-column: 1 / 2;
   grid-row: 1;
 }
 
 .right {
-grid-column: 2 / 3;
+  grid-column: 2 / 3;
   grid-row: 1;
 }
 
@@ -145,7 +198,6 @@ table {
 th {
   background-color: #cbcece;
   color: rgba(29, 28, 28, 0.66);
-  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -156,7 +208,7 @@ td {
   background-color: #f9f9f9;
 }
 
-.td {
+.pointer {
   cursor: pointer;
 }
 

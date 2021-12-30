@@ -17,7 +17,9 @@
 <script>
 export default {
   name: "Formulaire",
-  props: {},
+  props: {
+    capitalize: Function
+  },
   data: function () {
     return {
       name: "",
@@ -27,9 +29,6 @@ export default {
     };
   },
   methods: {
-    capitalize: function (string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
     send: function () {
       let valid = true;
       if (!isNaN(this.name) || this.name == "") {
@@ -46,9 +45,7 @@ export default {
         this.errAge = "";
       }
 
-      if (valid) {
-        console.log(this.name, this.age);
-      } else {
+      if (!valid) {
         console.log("formulaire invalide !");
         return;
       }
@@ -63,9 +60,7 @@ export default {
 
       this.axios
         .post("https://localhost:7150/api/todoitems", content)
-        .then(function (response) {
-          console.log("resp : ", response);
-        })
+        .then(function () {})
         .catch(function (error) {
           console.log("err : ", error);
         });

@@ -1,8 +1,12 @@
 <template>
-  <img id="logo" alt="Vue logo" src="./assets/logo.png" />
+  <h2 id="title">
+    <img id="logo" alt="Vue logo" src="./assets/logo.png" /> DotNet Rest Api
+    test client
+  </h2>
+  <br />
   <div>
-    <Formulaire />
-    <RequestReturn />
+    <Formulaire :capitalize="capitalize" />
+    <RequestReturn :capitalize="capitalize" />
   </div>
 </template>
 
@@ -16,6 +20,11 @@ export default {
     Formulaire,
     RequestReturn,
   },
+  methods: {
+    capitalize: function (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+  }
 };
 </script>
 
@@ -28,8 +37,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 #logo {
-  width: 5%;
+  width: 40px;
+  vertical-align: middle;
 }
 label {
   display: inline-block;
@@ -71,5 +82,4 @@ button:active {
 input {
   padding: 6px 12px;
 }
-
 </style>
