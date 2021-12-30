@@ -59,7 +59,7 @@ export default {
       //this.axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
       this.axios
-        .post("https://localhost:7150/api/todoitems", content)
+        .post("https://localhost:7150/api/testitems", content)
         .then(function () {})
         .catch(function (error) {
           console.log("err : ", error);

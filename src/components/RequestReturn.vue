@@ -77,7 +77,7 @@ export default {
   methods: {
     reqAll: function () {
       this.axios
-        .get("https://localhost:7150/api/todoitems")
+        .get("https://localhost:7150/api/testitems")
         .then((response) => {
           this.list = response.data.sort((a, b) => {
             return a.id - b.id;
@@ -92,7 +92,7 @@ export default {
       console.log(this.id);
       let id = this.id;
       this.axios
-        .get("https://localhost:7150/api/todoitems/" + id)
+        .get("https://localhost:7150/api/testitems/" + id)
         .then((response) => {
           if (id == "") {
             this.list = response.data;
@@ -110,7 +110,7 @@ export default {
       console.log(this.name);
       let name = this.capitalize(this.name);
       this.axios
-        .get("https://localhost:7150/api/todoitems/name/" + name)
+        .get("https://localhost:7150/api/testitems/name/" + name)
         .then((response) => {
           console.log(response)
           if (name != "") {
@@ -129,7 +129,7 @@ export default {
       console.log(this.age);
       let age = this.age;
       this.axios
-        .get("https://localhost:7150/api/todoitems/age/" + age)
+        .get("https://localhost:7150/api/testitems/age/" + age)
         .then((response) => {
           console.log(response)
           if (age != "") {

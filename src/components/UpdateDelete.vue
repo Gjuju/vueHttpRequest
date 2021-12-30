@@ -41,7 +41,7 @@ export default {
     
     deleteItem: function () {
       this.axios
-        .delete("https://localhost:7150/api/todoitems/" + this.tempItem.id)
+        .delete("https://localhost:7150/api/testitems/" + this.tempItem.id)
         .then((response) => {
           console.log(response.data);
           this.tempItem.id = undefined;
@@ -58,7 +58,7 @@ export default {
       this.tempItem.name = this.capitalize(this.tempItem.name);
       this.axios
         .put(
-          "https://localhost:7150/api/todoitems/" + this.tempItem.id,
+          "https://localhost:7150/api/testitems/" + this.tempItem.id,
           this.tempItem
         )
         .then((response) => {
